@@ -15,6 +15,8 @@ namespace TipCalculator.Maui.ViewModels
 
         // VAriables de instancia para los resultados de la IU
         [ObservableProperty]
+        public string _importeDelConsumoDuplicado;
+        [ObservableProperty]
         private string _importeDelConsumoPorPersona;
         [ObservableProperty]
         private string _importeDeLaPropina;
@@ -25,6 +27,7 @@ namespace TipCalculator.Maui.ViewModels
         [ObservableProperty]
         private string _importeTotalConPropinaPorPersona;
         private object consumo;
+        private string impoteDelConsumoDuplicado;
 
         public MainViewModel()
         {
@@ -43,6 +46,7 @@ namespace TipCalculator.Maui.ViewModels
             if (importedelConsumoValido && numeroDePersonasValido && porcentajeDePropinaValido)
             {
                 var consumo = new ConsumoCompartido(importeDelConsumo, numeroDePersonas, porcentajeDePropina);
+                ImporteDelConsumoDuplicado = importeDelConsumo.ToString("C2");
                 ImporteDelConsumoPorPersona = consumo.ImporteDelConsumoPorPersona.ToString("C2");
                 ImporteDeLaPropina = consumo.ImporteDeLaPropina.ToString("C2");
                 ImporteDeLaPropinaPorPersona = consumo.ImporteDeLaPropinaPorPersona.ToString("C2");
@@ -54,15 +58,20 @@ namespace TipCalculator.Maui.ViewModels
         public void Limpiar()
         {
             ImporteDelConsumo = string.Empty;
-            NumeroDePersonas = string.Empty;
-            PorcentajeDePropina = string.Empty;
+            NumeroDePersonas = "1";
+            PorcentajeDePropina = "10";
+            ImporteDelConsumoDuplicado = string.Empty;
             ImporteDelConsumoPorPersona = string.Empty;
             ImporteDeLaPropina = string.Empty;
             ImporteDeLaPropinaPorPersona = string.Empty;
             ImporteTotalConPropina = string.Empty;
             ImporteTotalConPropinaPorPersona = string.Empty;
         }
-
+        [RelayCommand]
+        public void ActualizarPorcentajeDePropina(string nuevoPorcentaje)
+        {
+            PorcentajeDePropina = nuevoPorcentaje;
+        }
     }
 
 
